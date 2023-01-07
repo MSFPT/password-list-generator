@@ -1,0 +1,393 @@
+@charset "UTF-8";
+@import url("./reset.css");
+@import url("data:text/css;base64,QGNoYXJzZXQgIlVURi04IjtAbWVkaWEgcHJpbnR7KntkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7fX0=");
+@import url("https://msfpt.github.io/scrollbarcss/scrollbar.css");
+
+/* https://github.com/msfpt/password-list-generator
+   License: MIT License
+*/
+
+@font-face {
+    font-family: "Terminal";
+    src: url("./fonts/Inconsolata-Regular.ttf");
+}
+
+* { outline: none !important; }
+a { border: none !important; }
+
+/* For Mobile */
+@media only screen and (max-width: 1000px) {
+    #terminal_header {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-height: 750px) {
+    #terminal_header {
+        display: none !important;
+    }
+}
+
+/* Safari */
+html:-webkit-full-screen ,
+:not(:root):-webkit-full-screen::backdrop ,
+/* IE11 */
+html:-ms-fullscreen ,
+:not(:root):-ms-fullscreen::backdrop ,
+/* Standard syntax */
+html:fullscreen
+/* For FullScreen */ {
+    background: #DAE2F8 !important;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #D6A4A4, #DAE2F8) !important;  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #D6A4A4, #DAE2F8) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* Standard syntax */
+:not(:root):fullscreen::backdrop
+/* For FullScreen */ {
+    display: none !important;
+}
+
+/* For desktop: */
+@media only screen and (min-width: 1000px) {
+@media only screen and (min-height: 750px) {
+    #terminal {
+        background: #DAE2F8 !important;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #D6A4A4, #DAE2F8) !important;  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #D6A4A4, #DAE2F8) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        display: flex !important;
+        flex-flow: column nowrap !important;
+        justify-content: center;
+        align-items: center;
+    }
+    #terminal_header {
+        background-color: #1e1e1e;
+        border-radius: 4px 4px 0 0;
+        width: calc(100vw - 200px) !important;
+        max-width: 920px !important;
+        height: 36px;
+        padding: 5px;
+        position: relative;
+        display: flex;
+        flex-flow: row-reverse nowrap;
+        justify-content: right;
+        align-items: center;
+    }
+    #terminal_header .title {
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        color: #cccccc;
+        user-select: none !important;
+        -ms-user-select: none !important;
+        -moz-user-select: none !important;
+        -webkit-user-select: none !important;
+    }
+    #terminal_header div {
+        --bg-color: #eee;
+        background-color: var(--bg-color);
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        margin: auto 5px;
+        cursor: pointer;
+        z-index: 7;
+    }
+    #terminal_header div.close {
+        --bg-color: #f55;
+    }
+    #terminal_header div.fullscreen {
+        --bg-color: #50fa7b;
+    }
+    #terminal_header div.minimize {
+        --bg-color: #f1fa8c;
+    }
+    #commands {
+        background-color: rgba(2, 2, 2, 1) !important;
+        width: calc(100vw - 200px) !important;
+        max-width: 920px !important;
+        height: 500px !important;
+        border-radius: 0 0 4px 4px !important;
+        box-shadow:
+		    /* offset-x | offset-y | blur-radius | spread-radius | color */
+		    0px 3px 4px 0px hsla(0,0%,0%,0.14), 
+		    0px 3px 3px -2px hsla(0,0%,0%,0.12), 
+		    0px 1px 8px 0px hsla(0,0%,0%,0.2);
+    }
+}}
+
+#terminal {
+    background: rgba(2, 2, 2, 1);
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    font-family: "Terminal";
+    overflow: hidden; /* Hide scrollbar */
+    user-zoom: none !important;
+    -webkit-user-drag: none !important;
+}
+
+#terminal {
+    --scrollbar-background-color: rgba(2, 2, 2, 1);
+    --scrollbar-color: rgba(2, 2, 2, 1);
+    --scrollbar-track-rounded: 0;
+    --scrollbar-thumb-rounded: 100px;
+    --scrollbar-padding: 3px;
+    --scrollbar-width: 8px;
+}
+
+#terminal:hover {
+    --scrollbar-color: #3e3e3ed5 !important;
+}
+
+#commands {
+    padding: 5px;
+    width: calc(100% - 10px);
+    max-height: calc(100% - 30px);
+    background-color: transparent;
+    padding-bottom: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    
+    list-style: none !important;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto; /* Add vertical scrollbar */
+}
+
+#commands li {
+    width: min-content;
+    height: auto;
+    color: #fff;
+    font-size: 16px;
+    font-family: "Terminal", sans-serif;
+    overflow-wrap: break-word;
+    caret-color: transparent;
+    word-break: break-all;
+    hyphens: manual;
+}
+
+#commands li:last-child pre {
+    position: relative;
+}
+
+#commands li:last-child pre::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -15px;
+    background: #fafafab3;
+    width: 9px;
+    height: calc(100% - 1px);
+    margin-left: 3px;
+    border-radius: 0.2px;
+    animation: blink 2s steps(4, start) infinite;
+    -webkit-animation: blink 2s steps(4, start) infinite;
+}
+
+#commands:not(.active) li:last-child pre::after {
+    background: transparent !important;
+    width: 7px !important;
+    height: calc(100% - 3px) !important;
+    border: 1px solid #fafafab3 !important;
+    animation: none !important;
+    -webkit-animation: none !important;
+}
+
+#commands li pre .bold {
+    font-weight: lighter !important;
+}
+
+#commands li pre .italic {
+    font-style: italic !important;
+}
+
+#commands li pre .x1 {
+    letter-spacing: 1px;
+}
+
+#commands li pre .x2 {
+    letter-spacing: 2px;
+}
+
+#commands li pre .color-red {
+    color: #C01C28 !important;
+}
+
+#commands li pre .color-blue {
+    color: #0088cc !important;
+}
+
+#commands li pre .color-l-blue{
+    color: #7dd3fc !important;
+}
+
+#commands li pre .color-green {
+    color: #00d324 !important;
+}
+
+#commands li pre .color-purple {
+    color: #7e00fd !important;
+}
+
+#commands li pre .color-pink {
+    color: #ff00f2 !important;
+}
+
+#commands li pre .color-yellow{
+    color: #d6f51e !important;
+}
+
+#commands li pre .color-orange {
+    color: #E2703A !important;
+}
+
+#commands li pre .color-gray{
+    color: #7a7f86 !important;
+}
+
+@keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+@-webkit-keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+#commands li.error {
+    color: rgb(250, 50, 50);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#commands li pre.input {
+    width: max-content;
+    position: relative;
+    margin-left: 12px;
+}
+
+#commands li pre.input input,
+#commands li pre.dialog  button{
+    font-family: "Terminal";
+}
+
+#commands li pre.input::after,
+#commands li pre.dialog::after {
+    display: none !important;
+}
+
+#commands li pre.input input {
+    background-color: transparent;
+    /* font-size: 15px; */
+    width: fit-content;
+    height: min-content;
+    color: #ffffff;
+    outline: none;
+    opacity: 0.8;
+    border: 0px;
+}
+
+/* Hide Calendar Icon In Chrome */
+
+/* Chrome, Safari, Edge, Opera */
+#commands li pre.input input[type="date"]::-webkit-inner-spin-button,
+#commands li pre.input input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* Remove Arrows/Spinners Example */
+
+/* Chrome, Safari, Edge, Opera */
+#commands li pre.input input::-webkit-outer-spin-button,
+#commands li pre.input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+#commands li pre.input input[type=number] {
+    appearance: textfield;
+    -webkit-appearance: textfield;
+    -ms-progress-appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+#commands li pre.input .before {
+    position: absolute;
+    bottom: calc(50% - 4px);
+    left: -10px;
+    width: 5px;
+    height: 5px;
+    background-color: #118b40;
+    box-shadow: inset 0 0 2px #00917b;
+    opacity: 0;
+    border-radius: 50%;
+    transform: scale(0%);
+    transition: all .4s ease-in-out;
+}
+
+#commands li pre.input input:focus ~ .before {
+    opacity: 1 !important;
+    transform: scale(100%) !important;
+}
+
+#commands li pre.input input.active ~ .before {
+    opacity: 1 !important;
+    transform: scale(100%) !important;
+}
+
+#commands li pre.dialog {
+    display: flex;
+    flex-flow: row nowrap;
+    width: max-content !important;
+}
+
+#commands li pre.dialog .button-box {
+    margin-left: 5px;
+}
+
+#commands li pre.dialog .button-box button {
+    background-color: #fcfcfc;
+    user-select: text;
+    padding: 1px 5px 0;
+    border-radius: 1px;
+    margin: 0 5px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+#commands li pre.dialog .button-box button:hover,
+#commands li pre.dialog .button-box button:active {
+    opacity: 0.9;
+}
+
+#commands li pre.dialog .button-box button.try-again,
+#commands li pre.dialog .button-box button#restart {
+    background-color: transparent !important;
+    padding: 0;
+    color: #15a0e6;
+}
+
+::selection {
+    background: #fff;
+    color: #000;
+}
