@@ -114,6 +114,7 @@ html:fullscreen
         max-width: 920px !important;
         height: 500px !important;
         border-radius: 0 0 4px 4px !important;
+        position: unset !important;
         box-shadow:
 		    /* offset-x | offset-y | blur-radius | spread-radius | color */
 		    0px 3px 4px 0px hsla(0,0%,0%,0.14), 
@@ -131,6 +132,8 @@ html:fullscreen
     overflow: hidden; /* Hide scrollbar */
     user-zoom: none !important;
     -webkit-user-drag: none !important;
+
+    position: relative;
 }
 
 #terminal {
@@ -156,6 +159,10 @@ html:fullscreen
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
     
     list-style: none !important;
     overflow-x: hidden; /* Hide horizontal scrollbar */
